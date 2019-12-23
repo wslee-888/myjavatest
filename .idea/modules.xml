@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ideaTestWorkSpace.iml" filepath="$PROJECT_DIR$/ideaTestWorkSpace.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myNetty/myNetty.iml" filepath="$PROJECT_DIR$/myNetty/myNetty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/myTestmodule/myTestmodule.iml" filepath="$PROJECT_DIR$/myTestmodule/myTestmodule.iml" />
+    </modules>
+  </component>
+</project>
