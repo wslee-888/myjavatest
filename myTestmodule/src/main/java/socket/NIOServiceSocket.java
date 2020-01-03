@@ -30,6 +30,10 @@ public class NIOServiceSocket {
 
         Selector writeSelector = Selector.open();
 
+        ByteBuffer readByteBuffer = ByteBuffer.allocate(1024);
+        ByteBuffer writeByteBuffer = ByteBuffer.allocate(1024);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
        /* while (acceptSelector.select() > 0){
 
             Iterator<SelectionKey> it = acceptSelector.selectedKeys().iterator();
@@ -103,7 +107,10 @@ public class NIOServiceSocket {
                 try {
 
                     while (true){
-                        int acceptNum = acceptSelector.selectNow();
+                        int acceptNum = acceptSelector.selectNow();//非阻塞，实时
+
+                        //acceptSelector.select();//一直阻塞
+                        //acceptSelector.select(1000);//限时阻塞
 
                         if (acceptNum <= 0){
                             continue;
@@ -114,7 +121,7 @@ public class NIOServiceSocket {
                         while (it.hasNext()){
                             SelectionKey sk = it.next();
 
-                            if (sk.isAcceptable()){
+                            if (sk.isValid() && sk.isAcceptable()){
 
                                 System.out.println(sk.toString()+":连接成功");
 
@@ -164,23 +171,24 @@ public class NIOServiceSocket {
                         while (it.hasNext()){
                             SelectionKey sk = it.next();
 
-                            if (sk.isReadable()){
-
-
+                            if (sk.isValid() && sk.isReadable()){
 
                                 SocketChannel socketChannel = (SocketChannel)sk.channel();
 
-                                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-
                                 int len;
 
-                                while ((len = socketChannel.read(byteBuffer)) > 0){
+                                while ((len = socketChannel.read(readByteBuffer)) > 0){
                                     System.out.println("读取状态");
 
-                                    byteBuffer.flip();
+                                    readByteBuffer.flip();
 
-                                    System.out.println(new String(byteBuffer.array(),byteBuffer.position(),byteBuffer.limit(),"utf-8"));
+                                    String str = new String(readByteBuffer.array(),readByteBuffer.position(),readByteBuffer.limit(),"utf-8");
+                                    System.out.println(str);
+
+                                    //sk.attach(str);
                                 }
+
+                                readByteBuffer.clear();
 
                             }
 
@@ -214,25 +222,21 @@ public class NIOServiceSocket {
                         while (it.hasNext()){
                             SelectionKey sk = it.next();
 
-                            if (sk.isWritable()){
-
-
+                            if (sk.isValid() && sk.isWritable()){
 
                                 SocketChannel socketChannel = (SocketChannel)sk.channel();
 
-                                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                                //ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
 
-
-                                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-                                String line = "";
-                                while ((line = bufferedReader.readLine()) != null){
+                                //String line = "";
+                                //while ((line = bufferedReader.readLine()) != null){
+                                    String line = bufferedReader.readLine();
                                     System.out.println("写入状态");
-                                    byteBuffer.put(line.getBytes());
-                                    byteBuffer.flip();
-                                    socketChannel.write(byteBuffer);
-                                    byteBuffer.clear();
-                                }
+                                    writeByteBuffer.put(line.getBytes());
+                                    writeByteBuffer.flip();
+                                    socketChannel.write(writeByteBuffer);
+                                    writeByteBuffer.clear();
+                                //}
                             }
 
                             it.remove();

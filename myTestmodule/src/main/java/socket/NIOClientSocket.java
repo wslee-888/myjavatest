@@ -27,6 +27,9 @@ public class NIOClientSocket {
 
 
         //socketChannel.configureBlocking(false);
+        ByteBuffer readByteBuffer = ByteBuffer.allocate(1024);
+        ByteBuffer writeByteBuffer = ByteBuffer.allocate(1024);
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
 
         new Thread(){
@@ -35,9 +38,7 @@ public class NIOClientSocket {
             public void run() {
 
                 try {
-                    ByteBuffer writeByteBuffer = ByteBuffer.allocate(1024);
 
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
                     String line = "";
                     System.out.println("开始写入");
@@ -60,7 +61,6 @@ public class NIOClientSocket {
             public void run() {
                 try {
                     int len;
-                    ByteBuffer readByteBuffer = ByteBuffer.allocate(1024);
                     System.out.println("开始读取");
                     while ((len = socketChannel.read(readByteBuffer)) > 0){
                         System.out.println("正在读取");
@@ -69,6 +69,8 @@ public class NIOClientSocket {
 
                         System.out.println(new String(readByteBuffer.array(),readByteBuffer.position(),readByteBuffer.limit(),"utf-8"));
                     }
+
+                    readByteBuffer.clear();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

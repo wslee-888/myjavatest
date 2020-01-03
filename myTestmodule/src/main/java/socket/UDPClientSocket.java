@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 public class UDPClientSocket {
 
@@ -21,11 +22,11 @@ public class UDPClientSocket {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
                     String line = "";
-                    DatagramPacket sendPacket = null;
                     InetAddress destination = InetAddress.getByName("localhost");
+                    DatagramPacket sendPacket = new DatagramPacket(line.getBytes(), line.getBytes().length,destination,8896);
 
                     while ((line = bufferedReader.readLine()) != null){
-                        sendPacket = new DatagramPacket(line.getBytes(), line.getBytes().length,destination,8896);
+                        sendPacket.setData(line.getBytes());
                         datagramSocket.send(sendPacket);
                     }
                 } catch (Exception e) {

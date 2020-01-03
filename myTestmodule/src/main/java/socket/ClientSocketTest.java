@@ -1,7 +1,9 @@
 package socket;
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 class MyClientSocketThread implements Runnable{
     private Socket socket;
@@ -70,7 +72,7 @@ class MyClientSocketThread implements Runnable{
 
             //OutputStreamWriter out = new OutputStreamWriter(outputStream);
 
-            //InputStreamReader in = new InputStreamReader(inputStream);
+             //InputStreamReader in = new InputStreamReader(inputStream);
 
             //BufferedOutputStream out = new BufferedOutputStream(outputStream);
 
@@ -118,13 +120,21 @@ public class ClientSocketTest {
 
         exec.execute(new MyClientSocketThread());*/
 
-        Socket socket = new Socket("192.168.1.106",8338);
+        //Socket socket = new Socket();
+       //socket.connect(new InetSocketAddress("192.168.1.191",8338));
+
+        //Socket socket = new Socket(new Proxy(Proxy.Type.HTTP,new InetSocketAddress("192.168.1.191",8338)));
+
+        //Socket socket = new Socket(new SocketImpl());
+
+        Socket socket = new Socket("192.168.1.191",8338);
+
+        //Socket socket = new Socket(InetAddress.getByName("192.168.1.191"),8338);
+        //Socket socket = new Socket(InetAddress.getLocalHost(),8338);
+
+        //Socket socket = new Socket("192.168.1.191",8338,InetAddress.getLocalHost(),57638);
 
         //SocketInputStream
-
-        //socket = new Socket();
-
-        //socket.connect(new InetSocketAddress(8336));
 
         System.out.println("客户端："+socket);
 
@@ -142,7 +152,7 @@ public class ClientSocketTest {
                     char[] chars = new char[1024];
 
                     while ((len = in.read(chars,0,1024)) != -1){
-                        System.out.println(new String(chars,0,len));
+                        System.out.println("客户端收到信息："+new String(chars,0,len));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -160,6 +170,7 @@ public class ClientSocketTest {
 
                     String line = "";
                     while ((line = bufferedReader.readLine()) != null){
+                        System.out.println("客户端发送信息："+line);
                         out.write(line);
                         //out.write("\n");
                         out.flush();

@@ -1,18 +1,9 @@
 package io;
 
-import sun.nio.cs.StreamDecoder;
-
-import java.io.*;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.nio.*;
-import java.nio.channels.*;
-import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.zip.*;
 
 public class IOStreamThree {
@@ -339,20 +330,28 @@ public class IOStreamThree {
         System.out.println(byteBuffer.getDouble());*/
 
 
-/*        CharBuffer charBuffer = byteBuffer.asCharBuffer();
+        //数据视图使用自己的属性(position offset)操作bytebuffer
+/*        byteBuffer.putChar('a');
 
-        byteBuffer.putChar('a');
-        //byteBuffer.flip();
+        CharBuffer charBuffer = byteBuffer.asCharBuffer();
+
+        byteBuffer.flip();
+        //charBuffer.flip();
         System.out.println("111111:"+charBuffer.get());
-        System.out.println("222222:"+byteBuffer.get());*/
+        //System.out.println("222222:"+byteBuffer.get());
+        System.out.println("222222:"+byteBuffer.getChar());*/
 
 /*        CharBuffer charBuffer = byteBuffer.asCharBuffer();
 
         charBuffer.put('c');
 
+        byteBuffer.putChar('b');
+
         charBuffer.flip();
 
         System.out.println(charBuffer.get());
+
+        //System.out.println(byteBuffer.get());
 
         System.out.println(byteBuffer.getChar());*/
 

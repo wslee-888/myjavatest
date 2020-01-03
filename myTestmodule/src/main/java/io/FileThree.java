@@ -3,6 +3,7 @@ package io;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
 final class Directory{

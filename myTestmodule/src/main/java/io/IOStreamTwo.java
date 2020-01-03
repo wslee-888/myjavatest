@@ -1,11 +1,5 @@
 package io;
 
-import java.io.*;
-import java.nio.Buffer;
-import java.nio.ByteBuffer;
-import java.util.Iterator;
-import java.util.stream.Stream;
-
 public class IOStreamTwo {
 
     public static void main(String[] args) throws Exception{
