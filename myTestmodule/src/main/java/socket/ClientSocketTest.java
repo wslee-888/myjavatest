@@ -116,6 +116,7 @@ class MyClientSocketThread implements Runnable{
 
 public class ClientSocketTest {
     public static void main(String[] args) throws Exception{
+        //连接,数据包,心跳包
        /* Executor exec = Executors.newCachedThreadPool();
 
         exec.execute(new MyClientSocketThread());*/
