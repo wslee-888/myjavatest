@@ -47,7 +47,7 @@ public class MyIOTest {
         PushbackReader pushbackReader;
         CharArrayReader charArrayReader;
         FilterReader filterReader;
-        InputStreamReader inputStreamReader;
+        InputStreamReader inputStreamReader;//StreamDecoder readBytes
         StringReader stringReader;
         BufferedReader bufferedReader;
         FileReader fileReader;

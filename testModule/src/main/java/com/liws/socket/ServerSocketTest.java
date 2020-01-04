@@ -1,6 +1,7 @@
 package com.liws.socket;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executor;
@@ -213,10 +214,13 @@ public class ServerSocketTest {
 
         /*线程池*/
 
-        Executor exec = Executors.newCachedThreadPool();
+        //Executor exec = Executors.newCachedThreadPool();
 
         try{
             ServerSocket serverSocket = new ServerSocket(8338);
+
+            //ServerSocket serverSocket = new ServerSocket();
+            //serverSocket.bind(new InetSocketAddress(8338));
 
             while (true){
                 Socket socket = serverSocket.accept();
@@ -239,7 +243,7 @@ public class ServerSocketTest {
                             char[] chars = new char[1024];
 
                             while ((len = in.read(chars,0,1024)) != -1){
-                                System.out.println(new String(chars,0,len));
+                                System.out.println("服务端收到信息："+new String(chars,0,len));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -257,6 +261,7 @@ public class ServerSocketTest {
 
                             String line = "";
                             while ((line = bufferedReader.readLine()) != null){
+                                System.out.println("服务端发送信息："+line);
                                 out.write(line);
                                 //out.write("\n");
                                 out.flush();

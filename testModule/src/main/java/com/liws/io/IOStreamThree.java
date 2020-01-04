@@ -339,20 +339,28 @@ public class IOStreamThree {
         System.out.println(byteBuffer.getDouble());*/
 
 
-/*        CharBuffer charBuffer = byteBuffer.asCharBuffer();
+        //数据视图使用自己的属性(position offset)操作bytebuffer
+/*        byteBuffer.putChar('a');
 
-        byteBuffer.putChar('a');
-        //byteBuffer.flip();
+        CharBuffer charBuffer = byteBuffer.asCharBuffer();
+
+        byteBuffer.flip();
+        //charBuffer.flip();
         System.out.println("111111:"+charBuffer.get());
-        System.out.println("222222:"+byteBuffer.get());*/
+        //System.out.println("222222:"+byteBuffer.get());
+        System.out.println("222222:"+byteBuffer.getChar());*/
 
 /*        CharBuffer charBuffer = byteBuffer.asCharBuffer();
 
         charBuffer.put('c');
 
+        byteBuffer.putChar('b');
+
         charBuffer.flip();
 
         System.out.println(charBuffer.get());
+
+        //System.out.println(byteBuffer.get());
 
         System.out.println(byteBuffer.getChar());*/
 
