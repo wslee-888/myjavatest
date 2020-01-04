@@ -27,3 +27,6 @@ hs_err_pid*
 pom.xml
 out
 *.iml
+.idea
+target
+NIOSocketDemo
