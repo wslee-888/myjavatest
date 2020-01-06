@@ -1,17 +1,20 @@
 package com.MyNetty.myTest;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
+import io.netty.channel.nio.NioEventLoop;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.util.concurrent.Future;
+import io.netty.util.concurrent.GenericFutureListener;
 
 import java.nio.charset.Charset;
+import java.util.Date;
+import java.util.EventListener;
 
 public class MyNettyServiceSocket {
 
@@ -48,7 +51,7 @@ public class MyNettyServiceSocket {
                             System.out.println("Port:" + ch.localAddress().getPort());
                             System.out.println("报告完毕");
 
-                            ch.pipeline().addLast(new StringEncoder(Charset.forName("GBK")));
+                            ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
                             ch.pipeline().addLast(new MyNettyServiceHandler()); // 客户端触发操作
                             ch.pipeline().addLast(new ByteArrayEncoder());
                         }
@@ -65,15 +68,17 @@ public class MyNettyServiceSocket {
 
 
     public static void main(String[] args) throws Exception{
-     /*   // 创建mainReactor
+ /*       // 创建mainReactor
 
         NioEventLoopGroup boosGroup = new NioEventLoopGroup();
 
-        // 创建工作线程组
+        // 创建工作线程组(负责io业务和其他业务)
 
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
 
-        final ServerBootstrap serverBootstrap = new ServerBootstrap();
+        //NioEventLoop
+
+        ServerBootstrap serverBootstrap = new ServerBootstrap();
 
         serverBootstrap
 
@@ -100,23 +105,22 @@ public class MyNettyServiceSocket {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
 
-                 // 配置入站、出站事件channel
+                     // 配置入站、出站事件channel
 
-                 // ch.pipeline().addLast(...);
+                        ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
+                        ch.pipeline().addLast(new MyNettyServiceHandler()); // 客户端触发操作
+                        ch.pipeline().addLast(new ByteArrayEncoder());
 
-                 // ch.pipeline().addLast(...);
-
-                }
-
-        });
+                    }
+                });
 
 
 
         // 绑定端口
 
         int port = 8886;
-
-        serverBootstrap.bind(port).addListener(future -> {
+        //final int port = 8886;
+        serverBootstrap.bind(port).addListener((future) -> {
 
             if(future.isSuccess()) {
 
@@ -130,8 +134,12 @@ public class MyNettyServiceSocket {
 
         });*/
 
+
+//        port = 8888;
+
+
         MyNettyServiceSocket serviceSocket = new MyNettyServiceSocket();
-        serviceSocket.setPort(8889);
+        serviceSocket.setPort(8886);
         serviceSocket.start();
     }
 }

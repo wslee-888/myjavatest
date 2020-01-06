@@ -44,7 +44,7 @@ public class MyNettyClientSocket {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             System.out.println("正在连接中...");
-                            ch.pipeline().addLast(new StringEncoder(Charset.forName("GBK")));
+                            ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
                             ch.pipeline().addLast(new MyNettyClientHandler());
                             ch.pipeline().addLast(new ByteArrayEncoder());
                             ch.pipeline().addLast(new ChunkedWriteHandler());
@@ -67,7 +67,7 @@ public class MyNettyClientSocket {
 
     public static void main(String[] args) throws Exception{
 
-        MyNettyClientSocket clientSocket = new MyNettyClientSocket("127.0.0.1",8889);
+        MyNettyClientSocket clientSocket = new MyNettyClientSocket("192.168.1.191",8886);
         clientSocket.start();
     }
 }

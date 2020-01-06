@@ -29,7 +29,6 @@ public class MyNettyServiceHandler extends ChannelInboundHandlerAdapter{
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println(ctx.channel().localAddress().toString() + " 通道已激活！");
-
        /* BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         String line = "";
@@ -117,4 +116,6 @@ public class MyNettyServiceHandler extends ChannelInboundHandlerAdapter{
             return null;
         }
     }
+
+
 }
