@@ -51,9 +51,10 @@ public class MyNettyServiceSocket {
                             System.out.println("Port:" + ch.localAddress().getPort());
                             System.out.println("报告完毕");
 
-                            ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
-                            ch.pipeline().addLast(new MyNettyServiceHandler()); // 客户端触发操作
-                            ch.pipeline().addLast(new ByteArrayEncoder());
+                            //ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
+                            ch.pipeline().addLast(new MyNettyServerInHandler());
+                            //ch.pipeline().addLast(new ByteArrayEncoder());
+                            //ch.pipeline().addLast(new MyNettyServerOutHandler());
                         }
                     });
             ChannelFuture cf = sb.bind().sync(); // 服务器异步创建绑定
