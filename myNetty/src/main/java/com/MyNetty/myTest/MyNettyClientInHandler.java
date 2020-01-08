@@ -5,6 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MyNettyClientInHandler extends ChannelInboundHandlerAdapter{
@@ -29,12 +30,22 @@ public class MyNettyClientInHandler extends ChannelInboundHandlerAdapter{
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("MyNettyClientInHandler:channelActive");
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        new Thread(){
 
-        String line = bufferedReader.readLine();
-        //while ((line = bufferedReader.readLine()) != null){
-            ctx.writeAndFlush(line);
-        //}
+            @Override
+            public void run() {
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null){
+                        ctx.writeAndFlush(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     @Override

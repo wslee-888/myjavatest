@@ -9,8 +9,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.bytes.ByteArrayEncoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 
@@ -44,17 +49,25 @@ public class MyNettyClientSocket {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             System.out.println("正在连接中...");
-                            //ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
+                            //ch.pipeline().addLast(new MyNettyClientOutHandler());
+                            ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
                             ch.pipeline().addLast(new MyNettyClientInHandler());
-                            ch.pipeline().addLast(new MyNettyClientOutHandler());
                             //ch.pipeline().addLast(new ByteArrayEncoder());
-
                         }
                     });
             // System.out.println("服务端连接成功..");
 
             ChannelFuture cf = b.connect().sync(); // 异步连接服务器
             System.out.println("服务端连接成功..."); // 连接完成
+
+           /* NioSocketChannel nioSocketChannel = (NioSocketChannel) cf.channel();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+            String line = "";
+            while ((line = bufferedReader.readLine()) != null){
+                nioSocketChannel.writeAndFlush(line);
+            }*/
+
 
             cf.channel().closeFuture().sync(); // 异步等待关闭连接channel
             System.out.println("连接已关闭.."); // 关闭完成

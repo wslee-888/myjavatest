@@ -9,6 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
@@ -32,7 +33,24 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("MyNettyServerInHandler:channelActive");
 
-        super.channelActive(ctx);
+        //super.channelActive(ctx);
+
+        new Thread(){
+
+            @Override
+            public void run() {
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null){
+                        ctx.writeAndFlush(line);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     @Override
@@ -95,6 +113,7 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
         System.out.println("MyNettyServerInHandler:exceptionCaught");
 
         super.exceptionCaught(ctx, cause);
+
     }
 
     @Override
