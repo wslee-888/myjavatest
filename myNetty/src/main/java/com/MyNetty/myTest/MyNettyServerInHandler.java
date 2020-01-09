@@ -1,6 +1,7 @@
 package com.MyNetty.myTest;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.buffer.UnpooledUnsafeDirectByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -43,8 +44,12 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
                     String line = "";
+                    ByteBuf byteBuf = Unpooled.buffer(1024);
+
                     while ((line = bufferedReader.readLine()) != null){
-                        ctx.writeAndFlush(line);
+                        byteBuf = byteBuf.retain().duplicate();
+                        byteBuf.writeBytes(line.getBytes());
+                        ctx.writeAndFlush(byteBuf);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

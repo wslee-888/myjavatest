@@ -51,9 +51,10 @@ public class MyNettyServiceSocket {
                             System.out.println("Port:" + ch.localAddress().getPort());
                             System.out.println("报告完毕");
 
-                            //ch.pipeline().addLast(new MyNettyServerOutHandler());
-                            ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
+                            ch.pipeline().addLast(new MyNettyServerOutHandler());
                             ch.pipeline().addLast(new MyNettyServerInHandler());
+                            //ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
+
                             //ch.pipeline().addLast(new ByteArrayEncoder());
                         }
                     });
@@ -136,7 +137,36 @@ public class MyNettyServiceSocket {
         });*/
 
 
+
+
 //        port = 8888;
+
+//        Bootstrap
+//
+//        ServerBootstrap
+//
+//        Future
+//
+//        ChannelFuture
+//
+//        Channel
+//
+//        Selector
+
+          //EventLoop
+//
+//        NioEventLoop
+//
+//        NioEventLoopGroup
+//
+//        ChannelHandler
+//
+//        ChannelHandlerContext
+//
+//        ChannelPipline
+//
+//        ChannelConfig
+//        ByteBuf
 
 
         MyNettyServiceSocket serviceSocket = new MyNettyServiceSocket();
