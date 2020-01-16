@@ -32,13 +32,13 @@ public class MyNettyServiceSocket {
     public void start() throws Exception{
         EventLoopGroup bossGroup = new NioEventLoopGroup();
 
-        EventLoopGroup group = new NioEventLoopGroup();
+        EventLoopGroup workGroup = new NioEventLoopGroup();
 
 
         try {
             ServerBootstrap sb = new ServerBootstrap();
             sb.option(ChannelOption.SO_BACKLOG, 1024);
-            sb.group(group, bossGroup) // 绑定线程池
+            sb.group(bossGroup, workGroup) // 绑定线程池
                     .channel(NioServerSocketChannel.class) // 指定使用的channel
                     .localAddress(this.port)// 绑定监听端口
                     .childHandler(new ChannelInitializer<SocketChannel>() { // 绑定客户端连接时候触发操作
@@ -51,8 +51,9 @@ public class MyNettyServiceSocket {
                             System.out.println("Port:" + ch.localAddress().getPort());
                             System.out.println("报告完毕");
 
-                            ch.pipeline().addLast(new MyNettyServerOutHandler());
                             ch.pipeline().addLast(new MyNettyServerInHandler());
+                            ch.pipeline().addLast(new MyNettyServerOutHandler());
+
                             //ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
 
                             //ch.pipeline().addLast(new ByteArrayEncoder());
@@ -62,7 +63,7 @@ public class MyNettyServiceSocket {
             System.out.println(MyNettyServiceSocket.class + " 启动正在监听： " + cf.channel().localAddress());
             cf.channel().closeFuture().sync(); // 关闭服务器通道
         } finally {
-            group.shutdownGracefully().sync(); // 释放线程池资源
+            workGroup.shutdownGracefully().sync(); // 释放线程池资源
             bossGroup.shutdownGracefully().sync();
         }
     }
@@ -153,7 +154,7 @@ public class MyNettyServiceSocket {
 //
 //        Selector
 
-          //EventLoop
+//        EventLoop
 //
 //        NioEventLoop
 //

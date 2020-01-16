@@ -2,6 +2,7 @@ package com.MyNetty.myTest;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -31,6 +32,19 @@ public class MyNettyClientInHandler extends ChannelInboundHandlerAdapter{
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("MyNettyClientInHandler:channelActive");
 
+        Channel channel = ctx.channel();
+        //channel.writeAndFlush("channel,你好");
+
+        //ctx.writeAndFlush("ctx,哈哈哈哈哈哈");
+
+
+        ctx.channel().eventLoop().execute(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
         new Thread(){
 
             @Override
@@ -38,15 +52,23 @@ public class MyNettyClientInHandler extends ChannelInboundHandlerAdapter{
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-                    String line = "";
+/*                    String line = "";
                     ByteBuf byteBuf = Unpooled.buffer(1024);
 
                     while ((line = bufferedReader.readLine()) != null){
-
-                        byteBuf = byteBuf.retain().duplicate();
+                        byteBuf.clear();
+                        byteBuf = byteBuf.retain();
                         byteBuf.writeBytes(line.getBytes());
                         ctx.writeAndFlush(byteBuf);
+
+                        System.out.println("byteBuf,readerIndex:"+byteBuf.readerIndex()+",可读区域大小："+byteBuf.readableBytes()+"，writerIndex:"+byteBuf.writerIndex()+",可写区域大小："+byteBuf.writableBytes());
+                    }*/
+
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null){
+                        channel.writeAndFlush(line);
                     }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

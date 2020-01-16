@@ -1,13 +1,12 @@
 package com.MyNetty.myTest;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.buffer.UnpooledUnsafeDirectByteBuf;
+import io.netty.buffer.*;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.ssl.SslContext;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,8 +45,15 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
                     String line = "";
                     ByteBuf byteBuf = Unpooled.buffer(1024);
 
+                    //ByteBufAllocator byteBufAllocator = new PooledByteBufAllocator();
+
+                    //ByteBufUtil
+
+                    //ByteBufHolder byteBufHolder;
+
                     while ((line = bufferedReader.readLine()) != null){
-                        byteBuf = byteBuf.retain().duplicate();
+                        byteBuf.clear();
+                        byteBuf = byteBuf.retain();
                         byteBuf.writeBytes(line.getBytes());
                         ctx.writeAndFlush(byteBuf);
                     }
@@ -79,6 +85,7 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
 
         System.out.println("netty服务端收到的信息："+new String(bytes,"UTF-8"));
 
+        System.out.println("byteBuf,readerIndex:"+byteBuf.readerIndex()+",可读区域大小："+byteBuf.readableBytes()+"，writerIndex:"+byteBuf.writerIndex()+",可写区域大小："+byteBuf.writableBytes());
 
         //NioSocketChannel nioSocketChannel = (NioSocketChannel) ctx.channel();
 
@@ -89,14 +96,6 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
         System.out.println("MyNettyServerInHandler:channelReadComplete");
-
-        /*BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
-        String line = bufferedReader.readLine();
-        //while ((line = bufferedReader.readLine()) != null){
-            ctx.writeAndFlush(line);
-        //}*/
-
     }
 
     @Override
@@ -117,7 +116,7 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println("MyNettyServerInHandler:exceptionCaught");
 
-        super.exceptionCaught(ctx, cause);
+        //super.exceptionCaught(ctx, cause);
 
     }
 
