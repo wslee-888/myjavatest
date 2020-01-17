@@ -62,6 +62,29 @@ public class MyNettyServiceSocket {
             ChannelFuture cf = sb.bind().sync(); // 服务器异步创建绑定
             System.out.println(MyNettyServiceSocket.class + " 启动正在监听： " + cf.channel().localAddress());
             cf.channel().closeFuture().sync(); // 关闭服务器通道
+
+
+
+
+/*             绑定端口
+
+            int port = 8886;
+            //final int port = 8886;
+            serverBootstrap.bind(port).addListener((future) -> {
+
+                if(future.isSuccess()) {
+
+                    System.out.println(new Date() + ": 端口["+ port + "]绑定成功!");
+
+                }else{
+
+                    System.err.println("端口["+ port + "]绑定失败!");
+
+                }
+
+            });
+        port = 8888;*/
+
         } finally {
             workGroup.shutdownGracefully().sync(); // 释放线程池资源
             bossGroup.shutdownGracefully().sync();
@@ -71,76 +94,6 @@ public class MyNettyServiceSocket {
 
 
     public static void main(String[] args) throws Exception{
- /*       // 创建mainReactor
-
-        NioEventLoopGroup boosGroup = new NioEventLoopGroup();
-
-        // 创建工作线程组(负责io业务和其他业务)
-
-        NioEventLoopGroup workerGroup = new NioEventLoopGroup();
-
-        //NioEventLoop
-
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
-
-        serverBootstrap
-
-                // 组装NioEventLoopGroup
-
-                .group(boosGroup, workerGroup)
-
-                // 设置channel类型为NIO类型
-
-                .channel(NioServerSocketChannel.class)
-
-                // 设置连接配置参数
-
-                .option(ChannelOption.SO_BACKLOG, 1024)
-
-                .childOption(ChannelOption.SO_KEEPALIVE, true)
-
-                .childOption(ChannelOption.TCP_NODELAY, true)
-
-                // 配置入站、出站事件handler
-
-                .childHandler(new ChannelInitializer<NioSocketChannel>() {
-
-                    @Override
-                    protected void initChannel(NioSocketChannel ch) {
-
-                     // 配置入站、出站事件channel
-
-                        ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
-                        ch.pipeline().addLast(new MyNettyServiceHandler()); // 客户端触发操作
-                        ch.pipeline().addLast(new ByteArrayEncoder());
-
-                    }
-                });
-
-
-
-        // 绑定端口
-
-        int port = 8886;
-        //final int port = 8886;
-        serverBootstrap.bind(port).addListener((future) -> {
-
-            if(future.isSuccess()) {
-
-                System.out.println(new Date() + ": 端口["+ port + "]绑定成功!");
-
-            }else{
-
-                System.err.println("端口["+ port + "]绑定失败!");
-
-            }
-
-        });*/
-
-
-
-
-//        port = 8888;
 
 //        Bootstrap
 //
