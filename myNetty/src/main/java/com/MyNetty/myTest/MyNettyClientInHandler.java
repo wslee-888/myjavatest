@@ -5,6 +5,7 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.ReferenceCountUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,12 +39,12 @@ public class MyNettyClientInHandler extends ChannelInboundHandlerAdapter{
         //ctx.writeAndFlush("ctx,哈哈哈哈哈哈");
 
 
-        ctx.channel().eventLoop().execute(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
+//        ctx.channel().eventLoop().execute(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        });
 
         new Thread(){
 
@@ -52,22 +53,32 @@ public class MyNettyClientInHandler extends ChannelInboundHandlerAdapter{
                 try {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-/*                    String line = "";
+                    String line = "";
                     ByteBuf byteBuf = Unpooled.buffer(1024);
 
                     while ((line = bufferedReader.readLine()) != null){
                         byteBuf.clear();
+
+                        System.out.println("引用数量1："+ReferenceCountUtil.refCnt(byteBuf));
+                        //ReferenceCountUtil.release(byteBuf);
+                        //ReferenceCountUtil.retain(byteBuf);
                         byteBuf = byteBuf.retain();
+
+                        System.out.println("引用数量2："+ReferenceCountUtil.refCnt(byteBuf));
+
+
                         byteBuf.writeBytes(line.getBytes());
                         ctx.writeAndFlush(byteBuf);
+                        System.out.println("引用数量3："+ReferenceCountUtil.refCnt(byteBuf));
 
                         System.out.println("byteBuf,readerIndex:"+byteBuf.readerIndex()+",可读区域大小："+byteBuf.readableBytes()+"，writerIndex:"+byteBuf.writerIndex()+",可写区域大小："+byteBuf.writableBytes());
-                    }*/
+                    }
 
-                    String line = "";
+                 /*   String line = "";
                     while ((line = bufferedReader.readLine()) != null){
                         channel.writeAndFlush(line);
                     }
+*/
 
                 } catch (IOException e) {
                     e.printStackTrace();

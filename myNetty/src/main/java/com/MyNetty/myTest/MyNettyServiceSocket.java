@@ -34,7 +34,6 @@ public class MyNettyServiceSocket {
 
         EventLoopGroup workGroup = new NioEventLoopGroup();
 
-
         try {
             ServerBootstrap sb = new ServerBootstrap();
             sb.option(ChannelOption.SO_BACKLOG, 1024);
@@ -62,7 +61,6 @@ public class MyNettyServiceSocket {
             ChannelFuture cf = sb.bind().sync(); // 服务器异步创建绑定
             System.out.println(MyNettyServiceSocket.class + " 启动正在监听： " + cf.channel().localAddress());
             cf.channel().closeFuture().sync(); // 关闭服务器通道
-
 
 
 
@@ -121,6 +119,7 @@ public class MyNettyServiceSocket {
 //
 //        ChannelConfig
 //        ByteBuf
+//        ChannelGroup
 
 
         MyNettyServiceSocket serviceSocket = new MyNettyServiceSocket();

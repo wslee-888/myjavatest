@@ -57,7 +57,7 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
                         byteBuf.writeBytes(line.getBytes());
                         ctx.writeAndFlush(byteBuf);
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -116,7 +116,7 @@ public class MyNettyServerInHandler extends ChannelInboundHandlerAdapter {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         System.out.println("MyNettyServerInHandler:exceptionCaught");
 
-        //super.exceptionCaught(ctx, cause);
+        super.exceptionCaught(ctx, cause);
 
     }
 

@@ -50,7 +50,7 @@ public class MyNettyClientSocket {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             System.out.println("正在连接中...");
                             ch.pipeline().addLast(new MyNettyClientInHandler());
-                            ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
+                            //ch.pipeline().addLast(new StringEncoder(Charset.forName("UTF-8")));
                             ch.pipeline().addLast(new MyNettyClientOutHandler());
 
                             //ch.pipeline().addLast(new ByteArrayEncoder());
