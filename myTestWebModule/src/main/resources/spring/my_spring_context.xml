@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd"
+        ><!--default-autowire="  default-init-method="" default-destroy-method=""-->
+    <!--<context:annotation-config/>-->
+
+    <context:component-scan base-package="com" />
+   <!-- <context:component-scan base-package="com" use-default-filters="true">
+        <context:exclude-filter type="annotation" expression="com"></context:exclude-filter>
+        <context:include-filter type="annotation" expression="com"></context:include-filter>
+    </context:component-scan>-->
+
+    <!--    <import resource="services.xml"/>
+        <import resource="resources/messageSource.xml"/>
+        <import resource="/resources/themeSource.xml"/>-->
+
+<!--    1、构造函数实例化
+    <bean id="exampleBean" class="examples.ExampleBean"/>
+    2、静态工厂方法实例化
+    <bean id="clientService" class="examples.ClientService" factory-method="createInstance"/>
+    3、实例工厂方法实例化
+    <bean id="serviceLocator" class="examples.DefaultServiceLocator"></bean>
+
+    <bean id="clientService"
+          factory-bean="serviceLocator"
+          factory-method="createClientServiceInstance"/>-->
+
+
+    <bean id="myClassOne" class="com.bean.MyClassOne">
+    <!--    autowire="byType"-->
+        <!--
+        按值的顺序默认匹配
+        <constructor-arg value="1"/>
+        <constructor-arg value="abc"/>
+        <constructor-arg ref="myClassTwo"/>
+        -->
+
+       <!--
+        按名称匹配
+       <constructor-arg name="status" value="1"/>
+        <constructor-arg name="str" value="abc"/>
+        <constructor-arg name="myClassTwo" ref="myClassTwo"/>
+        -->
+
+        <!--按类型匹配-->
+       <!-- <constructor-arg type="java.lang.Integer" value="1"/>
+        <constructor-arg type="java.lang.String" value="abc"/>-->
+
+        <!--按索引顺序匹配-->
+        <!--<constructor-arg index="0" value="1"/>
+        <constructor-arg index="1" value="abc"/>-->
+
+        <property name="id" value="888666"/>
+
+        <!--<property name="myClassTwo" ref="myClassTwo"/>-->
+
+
+        <!--<property name="properties">
+            <value>
+                status=1
+                str=abc
+            </value>
+        </property>-->
+
+        <!--<property name="target">
+            <ref parent="accountService"/>
+        </property>-->
+
+       <!-- <property name="myClassTwo">
+            <bean class="com.bean.MyClassTwo">
+                <property name="name" value="Fiona Apple"/>
+                <property name="age" value="25"/>
+            </bean>
+        </property>-->
+
+        <!--集合属性-->
+        <!--bean | ref | idref | list | set | map | props | value | null-->
+
+      <!--  <property name="">
+            <bean>
+
+            </bean>
+
+            <ref>
+
+            </ref>
+
+            <idref>
+
+            </idref>
+
+            <list>
+            </list>
+
+
+        </property>-->
+        
+<!--        <property name="email">
+
+            <null/>
+        </property>-->
+
+        <!--<property name="myClassTwo.name" value="Jill"/>-->
+
+    </bean>
+
+    <!--<bean class="com.bean.MyClassTwo" scope="singleton"></bean>-->
+<!--
+    <bean class="com.bean.MyClassTwo" primary="true"></bean>
+-->
+    <!--自动注入XMl配置-->
+    <!--<bean id="myClassTwo" class="com.bean.MyClassTwo" autowire="default" ></bean>-->
+    <!--<bean id="myClassTwo" class="com.bean.MyClassTwo" autowire="no" ></bean>-->
+    <!--<bean id="myClassTwo" class="com.bean.MyClassTwo" autowire="byName" ></bean>-->
+    <!--<bean id="myClassTwo" class="com.bean.MyClassTwo" autowire="byType"></bean>-->
+    <!--<bean id="myClassTwo" class="com.bean.MyClassTwo" autowire="constructor" ></bean>
+    <!-autowire-candidate="false" 一般和全局设置的自动装配起作用-->
+
+
+    <!--方法注入(aop)-->
+<!--    <bean id="apple" class="com.bean.Apple" scope="prototype"/>
+    <bean id="banana" class="com.bean.banana" scope="prototype"/>
+
+    <bean id="fruitPlate1" class="com.bean.FruitPlate">
+        <lookup-method name="getFruit" bean="apple"/>
+    </bean>
+
+    <bean id="fruitPlate2" class="com.bean.FruitPlate">
+        <lookup-method name="getFruit" bean="banana"/>
+    </bean>-->
+
+    <!--方法替换注入(aop)-->
+<!--    <bean id="myValueCalculator" class="x.y.z.MyValueCalculator">
+        <replaced-method name="computeValue" replacer="replacementComputeValue">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="replacementComputeValue" class="a.b.c.ReplacementComputeValue"/>-->
+
+
+    <alias name="myClassOne" alias="one"/>
+
+
+    <!--p-namespace-->
+<!--    <bean name="john-classic" class="com.example.Person">
+        <property name="name" value="John Doe"/>
+        <property name="spouse" ref="jane"/>
+    </bean>
+
+    <bean name="john-modern"
+          class="com.example.Person"
+          p:name="John Doe"
+          p:spouse-ref="jane"/>
+
+    <bean name="jane" class="com.example.Person">
+        <property name="name" value="Jane Doe"/>
+    </bean>-->
+
+
+    <!--c-namespace-->
+    <!--<bean id="beanTwo" class="x.y.ThingTwo"/>
+    <bean id="beanThree" class="x.y.ThingThree"/>
+
+    <bean id="beanOne" class="x.y.ThingOne">
+        <constructor-arg name="thingTwo" ref="beanTwo"/>
+        <constructor-arg name="thingThree" ref="beanThree"/>
+        <constructor-arg name="email" value="something@somewhere.com"/>
+    </bean>
+
+    <bean id="beanOne" class="x.y.ThingOne" c:thingTwo-ref="beanTwo"
+          c:thingThree-ref="beanThree" c:email="something@somewhere.com"/>
+
+      <bean id="beanOne" class="x.y.ThingOne" c:_0-ref="beanTwo" c:_1-ref="beanThree" c:_2="something@somewhere.com"/>
+     -->
+
+    <!--依赖加载-->
+  <!--  <bean id="beanOne" class="ExampleBean" depends-on="manager,accountDao">
+        <property name="manager" ref="manager" />
+    </bean>
+
+    <bean id="manager" class="ManagerBean" />
+    <bean id="accountDao" class="x.y.jdbc.JdbcAccountDao" />-->
+
+    <!--延迟加载-->
+   <!-- <bean id="lazy" class="com.something.ExpensiveToCreateBean" lazy-init="true"/>
+
+    <beans default-lazy-init="true">
+    </beans>-->
+
+
+<!--    <bean id="myClassTwo1" class="com.bean.MyClassTwo" scope="singleton"/>
+
+    <bean id="myClassTwo2" class="com.bean.MyClassTwo" scope="prototype"/>
+
+    <bean id="myClassTwo3" class="com.bean.MyClassTwo" scope="request"/>
+
+    <bean id="myClassTwo4" class="com.bean.MyClassTwo" scope="session"/>
+
+    <bean id="myClassTwo5" class="com.bean.MyClassTwo" scope="application"/>
+
+    <bean id="myClassTwo6" class="com.bean.MyClassTwo" scope="websocket"/>
+
+    不同生存周期和范围的依赖相互注入(aop)
+    <bean id="userPreferences" class="com.something.UserPreferences" scope="session">
+        <aop:scoped-proxy/>
+    </bean>
+
+    <bean id="userManager" class="com.something.UserManager">
+        <property name="userPreferences" ref="userPreferences"/>
+    </bean>-->
+
+    <!--自定义自己的scope-->
+   <!-- <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="thread">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+
+                <entry key="myScope">
+                    <bean class="com.scope.MySpringBeanScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="myClassTwo" class="com.bean.MyClassTwo" scope="myScope"/>
+
+    <bean id="thing2" class="x.y.Thing2" scope="thread">
+        <aop:scoped-proxy/>
+    </bean>
+
+    -->
+
+    <!--定义bean的生命周期-->
+    <!--<bean id="myClassThree" class="com.lifecycle.MyLifeClassOne" init-method="initTwo" destroy-method="destroyTwo" />-->
+
+
+    <!--定义bean之间的继承-->
+    <!--<bean id="inheritedTestBeanWithoutClass" abstract="true">
+        <property name="name" value="parent"/>
+        <property name="age" value="1"/>
+    </bean>
+
+    <bean id="inheritsWithClass" class="org.springframework.beans.DerivedTestBean" parent="inheritedTestBeanWithoutClass" init-method="initialize">
+        <property name="name" value="override"/>
+    </bean>-->
+
+    <!--通过BeanPostProcessor（后置器）延伸扩展springIOC容器，不用直接ApplicationContext 实现类进行子类化，这样耦合度大-->
+
+    <!--<bean class="com.bean.MyClassTwo" ></bean>-->
+
+    <!--<bean class="com.bean.MyClassFour" scope="singleton" init-method="init" destroy-method="destroy"/>-->
+    <!--<bean id="classFour2" class="com.bean.MyClassFour" primary="true">-->
+        <!--<qualifier></qualifier>-->
+    <!--</bean>-->
+
+    <!--使用CustomAutowireConfigurer配置自动装配-->
+    <!--<bean id="customAutowireConfigurer"
+          class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
+        <property name="customQualifierTypes">
+            <set>
+                <value>example.CustomQualifier</value>
+            </set>
+        </property>
+    </bean>-->
+
+</beans>
