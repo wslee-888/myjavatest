@@ -1,13 +1,25 @@
-import com.applicaton.MyAppConfig;
-import com.applicaton.MyAppConfigOne;
-import com.applicaton.MyApplication;
+import com.applicaton.*;
 import com.bean.*;
 import com.lifecycle.MyLifeClassOne;
 import com.service.MyServiceInterface;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.PropertySources;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ServletConfigAware;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,7 +32,7 @@ public class MyTest {
 
         System.out.println("测试git2的使用，哈哈哈");*/
 
-        //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/my_spring_context.xml","spring/my_spring_database.xml");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring/my_spring_context.xml");
 //        MyClassOne myClassOne = context.getBean(MyClassOne.class);
 //        System.out.println(myClassOne);
 
@@ -114,11 +126,13 @@ public class MyTest {
         //DriverManagerDataSource driverManagerDataSource = context.getBean(DriverManagerDataSource.class);
         //System.out.println(driverManagerDataSource.getUrl()+","+driverManagerDataSource.getUsername()+","+driverManagerDataSource.getPassword());
 
+        //MyEventPublisherService publisherService = context.getBean(MyEventPublisherService.class);
+        //publisherService.sendEmail("known.spammer@example.org","哈哈哈哈哈哈哈");
 
 
 
 
-         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyAppConfig.class);
+         //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyPropertyConfig.class);
 
           //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyClassSix.class,MyClassEight.class);
           //System.out.println(context.getBean(MyClassFive.class));
@@ -142,5 +156,50 @@ public class MyTest {
         //System.out.println(context.getBean(Apple.class));
         //System.out.println(context.getBean(Banana.class));
         //System.out.println(context.getBean(MyAppConfig.class));
+
+
+//        context.getEnvironment().setActiveProfiles("dev","pro","test");
+//        context.register(MyAppConfigThree.class);
+//        context.refresh();
+//
+//        System.out.println(context.getBean(Apple.class));
+//        System.out.println(context.getBean(Banana.class));
+//        System.out.println(context.getBean(Orange.class));
+
+
+        //代码添加环境配置
+/*        ConfigurableApplicationContext ctx = new GenericApplicationContext();
+        MutablePropertySources sources = ctx.getEnvironment().getPropertySources();
+        sources.addFirst(new MyPropertySource());*/
+        //Environment environment = context.getEnvironment();
+//        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = context.getBean(PropertySourcesPlaceholderConfigurer.class);
+//        DriverManagerDataSource driverManagerDataSource = context.getBean(DriverManagerDataSource.class);
+//
+//
+//        PropertySource<?> localProperties = propertySourcesPlaceholderConfigurer.getAppliedPropertySources().get("localProperties");
+//
+//
+//        System.out.println("appName:"+localProperties.getProperty("appName"));
+//        System.out.println("version:"+localProperties.getProperty("version"));
+//        System.out.println("author:"+localProperties.getProperty("author"));
+//        System.out.println("updateTime:"+localProperties.getProperty("updateTime"));
+//        System.out.println("target:"+localProperties.getProperty("target"));
+//
+//        System.out.println("jdbc.driverClassName:"+localProperties.getProperty("jdbc.driverClassName"));
+//        System.out.println("jdbc.url:"+localProperties.getProperty("jdbc.url"));
+//        System.out.println("jdbc.username:"+localProperties.getProperty("jdbc.username"));
+//        System.out.println("jdbc.password:"+localProperties.getProperty("jdbc.password"));
+//
+//        System.out.println("datasource_url:"+driverManagerDataSource.getUrl());
+//        System.out.println("datasource_username:"+driverManagerDataSource.getUsername());
+//        System.out.println("datasource_password:"+driverManagerDataSource.getPassword());
+
+
+//        MessageSource messageSource = new ClassPathXmlApplicationContext("spring/my_spring_context.xml");
+//
+//        System.out.println(messageSource.getMessage("hello",null,Locale.CHINESE));
+
+        //DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+        //factory.addBeanPostProcessor(new MyBeanPostProcessor());
     }
 }

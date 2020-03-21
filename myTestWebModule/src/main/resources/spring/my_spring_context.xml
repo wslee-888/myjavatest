@@ -10,7 +10,7 @@
         ><!--default-autowire="  default-init-method="" default-destroy-method=""-->
     <!--<context:annotation-config/>-->
 
-    <context:component-scan base-package="com" />
+    <!--<context:component-scan base-package="com" />-->
    <!-- <context:component-scan base-package="com" use-default-filters="true">
         <context:exclude-filter type="annotation" expression="com"></context:exclude-filter>
         <context:include-filter type="annotation" expression="com"></context:include-filter>
@@ -271,5 +271,37 @@
             </set>
         </property>
     </bean>-->
+
+    <!--LoadTimeWeaver的xml配置方式-->
+   <!-- <beans>
+        <context:load-time-weaver/>
+    </beans>-->
+
+
+    <!--<bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>properties.i18n.msg</value>
+            </list>
+        </property>
+    </bean>-->
+
+    <!--<bean id="myEventPublisherService" class="com.applicaton.MyEventPublisherService">
+
+         <property name="blackList">
+             <list>
+                 <value>known.spammer@example.org</value>
+                 <value>known.hacker@example.org</value>
+                 <value>john.doe@example.org</value>
+             </list>
+         </property>
+
+    </bean>
+
+    <bean id="" class="com.listener.MyAppEventListener"></bean>-->
+
+    <!--xml配置方式开启Aop支持-->
+    <!--<aop:aspectj-autoproxy/>-->
 
 </beans>
