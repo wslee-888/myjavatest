@@ -1,4 +1,4 @@
-package com.applicaton;
+package com.application;
 
 import com.event.MyApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;

@@ -2,12 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-       http://www.springframework.org/schema/beans
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd"
-        ><!--default-autowire="  default-init-method="" default-destroy-method=""-->
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+><!--default-autowire="  default-init-method="" default-destroy-method=""-->
     <!--<context:annotation-config/>-->
 
     <!--<context:component-scan base-package="com" />-->
@@ -301,7 +302,40 @@
 
     <bean id="" class="com.listener.MyAppEventListener"></bean>-->
 
-    <!--xml配置方式开启Aop支持-->
-    <!--<aop:aspectj-autoproxy/>-->
+<!--    <context:component-scan base-package="com.service"/>
+    &lt;!&ndash;xml配置方式开启Aop支持&ndash;&gt;
+    &lt;!&ndash;proxy-target-class 默认false使用jdk代理，true使用cglib代理&ndash;&gt;
+    <aop:aspectj-autoproxy />
 
+    <aop:config>
+
+        <aop:aspect id="myAspectTwo" ref="myAspectTwoBean">
+             <aop:pointcut id="myPointcutTwo" expression="execution(* com.service.MyServiceInterFaceIml.testOne())"></aop:pointcut>
+
+           &lt;!&ndash; arg-names=""，建议参数&ndash;&gt;
+
+             <aop:before method="myBeforeAdviceTwo" pointcut-ref="myPointcutTwo"/>
+
+
+            <aop:after-returning method="myAfterReturningAdviceTwo" pointcut-ref="myPointcutTwo" returning="result"/>
+
+            <aop:after-throwing method="myAfterThrowingAdviceTwo" pointcut-ref="myPointcutTwo"  throwing="ex"/>
+
+            <aop:after method="myAfterFinallyAdviceTwo" pointcut-ref="myPointcutTwo"/>
+
+            <aop:around method="myAroundAdviceTwo" pointcut-ref="myPointcutTwo"/>
+
+            &lt;!&ndash;通过代理接口实现代理&ndash;&gt;
+          &lt;!&ndash;
+
+          <aop:declare-parents types-matching="" implement-interface="">
+
+            </aop:declare-parents>&ndash;&gt;
+
+        </aop:aspect>
+
+    </aop:config>
+
+    <bean id="myAspectTwoBean" class="com.application.MyAspectTwo"/>-->
+    
 </beans>

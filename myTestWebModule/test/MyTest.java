@@ -1,27 +1,12 @@
-import com.applicaton.*;
-import com.bean.*;
-import com.lifecycle.MyLifeClassOne;
+import com.application.MyAopConfig;
+import com.application.MyAspect;
+import com.service.MyServiceInterFaceIml;
 import com.service.MyServiceInterface;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.MessageSource;
+import org.springframework.aop.MethodMatcher;
+import org.springframework.aop.Pointcut;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.MutablePropertySources;
-import org.springframework.core.env.PropertySource;
-import org.springframework.core.env.PropertySources;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ServletConfigAware;
-
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import org.springframework.web.servlet.DispatcherServlet;
 
 public class MyTest {
     public static void main(String[] args) throws Exception{
@@ -132,7 +117,7 @@ public class MyTest {
 
 
 
-         //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyPropertyConfig.class);
+         //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyAopConfig.class);
 
           //AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyClassSix.class,MyClassEight.class);
           //System.out.println(context.getBean(MyClassFive.class));
@@ -201,5 +186,12 @@ public class MyTest {
 
         //DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
         //factory.addBeanPostProcessor(new MyBeanPostProcessor());
+
+//        MyServiceInterface myService = context.getBean(MyServiceInterface.class);
+//        myService.testOne();
+
+        MyServiceInterface serviceInterface = context.getBean(MyServiceInterface.class);
+        serviceInterface.testOne();
+
     }
 }

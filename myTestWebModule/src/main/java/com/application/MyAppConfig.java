@@ -1,17 +1,14 @@
-package com.applicaton;
+package com.application;
 
 import com.bean.Apple;
 import com.bean.Banana;
-import com.bean.Orange;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.ApplicationScope;
-import org.springframework.web.context.annotation.RequestScope;
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.stereotype.Service;
 
-@Configuration
+//@Configuration
 @ComponentScan(basePackages = "com.bean")
 /*@ComponentScan(basePackages = "com",
         includeFilters = { @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Component.class) },
@@ -24,6 +21,13 @@ import org.springframework.web.context.annotation.SessionScope;
 //    ASPECTJ,
 //    REGEX,
 //    CUSTOM;
+
+/*includeFilters = {@ComponentScan.Filter(
+        type = FilterType.ANNOTATION,
+        classes = {MyAspect.class,MyAdvice.class},
+        value = {Component.class,Service.class},
+        pattern = {})}*/
+
 //@ComponentScans()
 @ImportResource("classpath:./spring/my_spring_database.xml")
 public class MyAppConfig {

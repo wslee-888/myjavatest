@@ -1,13 +1,11 @@
-package com.applicaton;
+package com.application;
 
-import com.bean.Apple;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class MyApplication implements ApplicationContextAware{
     private ApplicationContext applicationContext;
 

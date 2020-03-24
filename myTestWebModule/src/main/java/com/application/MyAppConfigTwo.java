@@ -1,13 +1,12 @@
-package com.applicaton;
+package com.application;
 
 
 import com.bean.Apple;
 import com.bean.Banana;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class MyAppConfigTwo {
     private Apple apple;
 

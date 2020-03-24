@@ -1,6 +1,5 @@
-package com.applicaton;
+package com.application;
 
-import com.bean.Apple;
 import com.bean.Orange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,10 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-import javax.annotation.Resource;
 
-
-@Configuration
+//@Configuration
 @PropertySource(value = {"classpath:properties/database.properties","classpath:properties/myPropertyConfig.properties"},encoding="UTF-8")
 public class MyPropertyConfig {
     //系统配置获取顺序

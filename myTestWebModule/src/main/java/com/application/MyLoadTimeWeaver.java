@@ -1,9 +1,9 @@
-package com.applicaton;
+package com.application;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableLoadTimeWeaving;
 
-@Configuration
-@EnableLoadTimeWeaving
+//@Configuration
+//@EnableLoadTimeWeaving
 public class MyLoadTimeWeaver {
 }

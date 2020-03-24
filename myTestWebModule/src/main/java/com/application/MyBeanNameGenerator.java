@@ -1,4 +1,4 @@
-package com.applicaton;
+package com.application;
 
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

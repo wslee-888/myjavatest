@@ -1,15 +1,13 @@
-package com.applicaton;
+package com.application;
 
 import com.bean.Apple;
 import com.bean.Banana;
 import com.bean.Orange;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.test.context.ActiveProfiles;
 
-@Configuration
+//@Configuration
 //@ActiveProfiles(profiles = {"dev"})
 //@Profile("default")
 public class MyAppConfigThree {
